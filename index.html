@@ -50,7 +50,7 @@
 
 
             const turnButton = document.querySelectorAll('.turn-button');
-            turnButton.forEach(button => button.addEventListener('click',e => {playRound(e.target.textContent,computerPlay())}));
+            turnButton.forEach(button => button.addEventListener('click',playRound));
 
             const playButton = document.querySelector('.play-button');
             playButton.addEventListener('click',playAgain);
@@ -74,8 +74,9 @@
                 }
             }
             
-            function playRound(playerSelection, computerSelection){
-                let lcPlayerSelection = playerSelection.toLowerCase();
+            function playRound(playerSelection){
+                let computerSelection = computerPlay();
+                let lcPlayerSelection = playerSelection.target.textContent.toLowerCase();
                 console.log (lcPlayerSelection);
                 console.log (computerSelection);
                 const score = document.querySelector('#score-tracker');
@@ -151,8 +152,8 @@
                     roundDisplay.textContent = "Game over! " + gameWinner;
                     player.textContent = playerGame;
                     computer.textContent = computerGame;
-                    const turnButton = document.querySelectorAll('.turn-button');
-                    turnButton.forEach(button => button.removeEventListener('click'));
+                    const removeTurnButton = document.querySelectorAll('.turn-button');
+                    removeTurnButton.forEach(button => button.removeEventListener('click',playRound));
                 } else {
                     // display round result
                     // round + 1
@@ -182,7 +183,7 @@
                     scores.removeChild(scores.lastElementChild);
                 }
                 const turnButton = document.querySelectorAll('.turn-button');
-                turnButton.forEach(button => button.addEventListener('click',e => {playRound(e.target.textContent,computerPlay())}));
+                turnButton.forEach(button => button.addEventListener('click',playRound));
             }
 
         </script>
